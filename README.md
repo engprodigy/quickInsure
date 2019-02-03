@@ -1,29 +1,11 @@
-Android Sunflower (alpha)
-=========================
-[![CircleCI](https://circleci.com/gh/googlesamples/android-sunflower/tree/master.svg?style=shield)](https://circleci.com/gh/googlesamples/android-sunflower/tree/master)
 
-A gardening app illustrating Android development best practices with Android Jetpack.
 
-Android Sunflower is currently released as an alpha and is under heavy development. To view the
-latest changes, please visit the
-[Releases page](https://github.com/googlesamples/android-sunflower/releases).
-Note that some changes (such as database schema modifications) are not backwards
-compatible during this alpha period and may cause the app to crash. In this
-case, please uninstall and re-install the app.
+A insurance electronic purchase app illustrating Android development best practices with Android Jetpack.
 
-Introduction
-------------
 
-Android Jetpack is a set of components, tools and guidance to make great Android apps. They bring
-together the existing Support Library and Architecture Components and arranges them into four
-categories:
 
-![Android Jetpack](screenshots/jetpack_donut.png "Android Jetpack Components")
+Don't ever re-invent the wheel.
 
-Android Sunflower demonstrates utilizing these components to create a simple gardening app.
-Read the
-[Introducing Android Sunflower](https://medium.com/androiddevelopers/introducing-android-sunflower-e421b43fe0c2)
-article for a walkthrough of the app.
 
 Getting Started
 ---------------
@@ -38,12 +20,7 @@ For more resources on learning Android development, visit the
 [Developer Guides](https://developer.android.com/guide/) at
 [developer.android.com](https://developer.android.com).
 
-Screenshots
------------
 
-![List of plants](screenshots/phone_plant_list.png "A list of plants")
-![Plant details](screenshots/phone_plant_detail.png "Details for a specific plant")
-![My Garden](screenshots/phone_my_garden.png "Plants that have been added to your garden")
 
 Libraries Used
 --------------
@@ -70,6 +47,8 @@ Libraries Used
 * Third party
   * [Glide][90] for image loading
   * [Kotlin Coroutines][91] for managing background threads with simplified code and reducing needs for callbacks
+  * [Retrofit][90]  
+  * [Dagger 2][90]   
 
 [0]: https://developer.android.com/jetpack/foundation/
 [1]: https://developer.android.com/topic/libraries/support-library/packages#v7-appcompat
@@ -90,13 +69,6 @@ Libraries Used
 [90]: https://bumptech.github.io/glide/
 [91]: https://kotlinlang.org/docs/reference/coroutines-overview.html
 
-Upcoming features
------------------
-Updates will include incorporating additional Jetpack components and updating existing components
-as the component libraries evolve.
-
-Interested in seeing a particular feature of the Android Framework or Jetpack implemented in this
-app? Please open a new [issue](https://github.com/googlesamples/android-sunflower/issues).
 
 Android Studio IDE setup
 ------------------------
@@ -117,59 +89,4 @@ from the ktlint [README](https://github.com/shyiko/ktlint/blob/master/README.md)
 
 - Start Android Studio
 
-Additional resources
---------------------
-Check out these Wiki pages to learn more about Android Sunflower:
 
-- [Notable Community Contributions](https://github.com/googlesamples/android-sunflower/wiki/Notable-Community-Contributions)
-
-- [Publications](https://github.com/googlesamples/android-sunflower/wiki/Sunflower-Publications)
-
-Non-Goals
----------
-The focus of this project is on Android Jetpack and the Android framework.
-Thus, there are no immediate plans to implement features outside of this scope.
-
-A note on dependency injection - while many projects (such as
-[Plaid](https://github.com/nickbutcher/plaid)) use
-[Dagger 2](https://github.com/google/dagger) for DI, there are no plans to
-incorporate DI into Sunflower.  This allows developers unfamiliar with dependency
-injection to better understand Sunflower's code without having to learn DI.
-
-Support
--------
-
-- Google+ Community: https://plus.google.com/communities/105153134372062985968
-- Stack Overflow:
-  - http://stackoverflow.com/questions/tagged/android
-  - http://stackoverflow.com/questions/tagged/android-jetpack
-
-If you've found an error in this sample, please file an issue:
-https://github.com/googlesamples/android-sunflower/issues
-
-Patches are encouraged, and may be submitted by forking this project and submitting a pull request
-through GitHub.
-
-Third Party Content
--------------------
-Select text used for describing the plants (in `plants.json`) are used from Wikipedia via CC BY-SA 3.0 US (license in `ASSETS_LICENSE`).
-
-License
--------
-
-Copyright 2018 Google, Inc.
-
-Licensed to the Apache Software Foundation (ASF) under one or more contributor
-license agreements.  See the NOTICE file distributed with this work for
-additional information regarding copyright ownership.  The ASF licenses this
-file to you under the Apache License, Version 2.0 (the "License"); you may not
-use this file except in compliance with the License.  You may obtain a copy of
-the License at
-
-  http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the
-License for the specific language governing permissions and limitations under
-the License.
