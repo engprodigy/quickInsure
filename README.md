@@ -1,10 +1,10 @@
 
 
-A insurance electronic purchase app illustrating Android development best practices with Android Jetpack.
+**An insurance mobile application for quick purchase of insurance products illustrating Android development best practices with Android Jetpack and incoporating additional functions and libraries to achive a mobile app with advanced functionalities and performance**
 
+I'm building this app using https://github.com/googlesamples/android-sunflower sample project as my base source code.
 
-
-Don't ever re-invent the wheel.
+**Don't ever re-invent the wheel.**
 
 
 Getting Started
