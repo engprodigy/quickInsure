@@ -23,7 +23,7 @@ class UserProductViewModel : ViewModel() {
 
     }
 
-    fun getUsers() {
+    /*fun getUsers() {
         var retrofit: Retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -50,7 +50,7 @@ class UserProductViewModel : ViewModel() {
             }
         })
     }
-
+*/
 
 }
 
