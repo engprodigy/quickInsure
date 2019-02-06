@@ -16,9 +16,11 @@
   -->
 
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">#4cae4e</color>
+    <color name="colorPrimaryOld">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="white">#110707</color>
+    <color name="colorAccent">#4cae4e</color>
+    <color name="colorAccentOld">#FF4081</color>
+    <color name="black">#110707</color>
     <color name="button_grey">#757575</color>
 </resources>

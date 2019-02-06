@@ -11,7 +11,8 @@ import com.google.samples.apps.sunflower.R
 import com.google.samples.apps.sunflower.Users
 
 
-class ProductAdapter(private val myDataset: ArrayList<Users>) :
+//class ProductAdapter( private val myDataset: ArrayList<Users>, val itemListener: (Users) -> Unit ) :
+class ProductAdapter( private val myDataset: ArrayList<Users>) :
         RecyclerView.Adapter<ProductAdapter.MyViewHolder>() {
 
     // Provide a reference to the views for each data item
@@ -19,7 +20,7 @@ class ProductAdapter(private val myDataset: ArrayList<Users>) :
     // you provide access to all the views for a data item in a view holder.
     // Each data item is just a string in this case that is shown in a TextView.
    // class MyViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
-
+    var onItemClick: ((Users) -> Unit)? = null
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(parent: ViewGroup,
@@ -42,11 +43,22 @@ class ProductAdapter(private val myDataset: ArrayList<Users>) :
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = myDataset.size
 
-    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+   // inner class MyViewHolder(itemView: View, val itemClick: (Users) -> Unit) : RecyclerView.ViewHolder(itemView) {
+   inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal var card_title: TextView
 
         init {
             card_title = itemView.findViewById<View>(R.id.card_title) as TextView
+            itemView.setOnClickListener {
+
+                onItemClick?.invoke(myDataset[adapterPosition])
+
+            }
         }
+       /* fun bind(users : Users){
+            with(users) {
+                itemView.setOnClickListener{ itemClick(this)}
+                }
+            }*/
     }
 }

@@ -7,21 +7,19 @@ import android.content.res.TypedArray
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
+
 import androidx.cardview.widget.CardView
 import com.google.samples.apps.sunflower.adapters.GardenPlantingAdapter
 import com.google.samples.apps.sunflower.adapters.ProductAdapter
@@ -35,6 +33,8 @@ import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.Response
+import kotlinx.android.synthetic.main.product_list.*
+
 
 
 /*import androidx.lifecycle.Observer
@@ -51,7 +51,7 @@ class ProductFragment : Fragment() {
     private val DATASET_COUNT = 60
     //val BASE_URL = "https://api.github.com/search/"
     val BASE_URL = "https://mbadigital-admin.safamdigital.com/"
-    var str:String = ""
+    //var str:String = ""
 
     var listOfusers: ArrayList<Users> = ArrayList()
 
@@ -68,13 +68,18 @@ class ProductFragment : Fragment() {
         getUsers()
 
         var adapter = ProductAdapter(listOfusers)
+
+        // recycler_view.adapter = adapter
+
+
+
         val view: View = inflater!!.inflate(R.layout.product_list, container,
                 false)
         val activity = activity
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view) as RecyclerView
 
 
-        var colors: Array<String> = arrayOf("green", "red", "blue")
+       // var colors: Array<String> = arrayOf("green", "red", "blue")
         //adding items in list
         /*for (i in 0..20) {
             val user = Users()
@@ -95,7 +100,14 @@ class ProductFragment : Fragment() {
             // mNameTextView.text = newName
             listOfusers!!.add(newUsers)
             adapter = ProductAdapter(listOfusers)
+
             recyclerView.adapter = adapter
+            adapter.onItemClick = { myDataset ->
+
+                // do something with your item
+                d("TAG", myDataset.product_code)
+                getProductPolicyDetails()
+            }
         }
 
         //adapter = ProductAdapter(listOfusers)
@@ -135,6 +147,10 @@ class ProductFragment : Fragment() {
                 Log.v("Error", t.toString())
             }
         })
+    }
+
+    private fun getProductPolicyDetails() {
+
     }
 }
 

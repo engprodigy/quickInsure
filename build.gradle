@@ -44,6 +44,7 @@ buildscript {
         uiAutomatorVersion = '2.2.0-alpha4'
         workVersion = '1.0.0-beta01'
         ext.retrofit_version = '2.4.0'
+        ext.anko_version='0.10.8'
     }
 
     repositories {
