@@ -26,6 +26,24 @@
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
+        <activity
+            android:name=".PropertyPurchaseFormActivity">
+        </activity>
+        <activity
+            android:name=".kyc_form_activity"
+            >
+
+        </activity>
+        <activity
+            android:name=".QuotationActivity"
+            >
+
+        </activity>
+        <activity
+            android:name=".PaymentActivity"
+            >
+
+        </activity>
     </application>
 
 </manifest>

@@ -2,6 +2,7 @@ package com.google.samples.apps.sunflower
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.Resources
 import android.content.res.TypedArray
 import android.graphics.drawable.Drawable
@@ -34,7 +35,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.Response
 import kotlinx.android.synthetic.main.product_list.*
-
+import kotlinx.android.synthetic.main.text_view.*
 
 
 /*import androidx.lifecycle.Observer
@@ -52,7 +53,9 @@ class ProductFragment : Fragment() {
     //val BASE_URL = "https://api.github.com/search/"
     val BASE_URL = "https://mbadigital-admin.safamdigital.com/"
     //var str:String = ""
-
+    val PREFS_FILENAME = "com.mba.product_customer_details.prefs"
+    var prefs: SharedPreferences? = null
+    val PRODUCT_NAME = "product_name"
     var listOfusers: ArrayList<Users> = ArrayList()
 
     private lateinit var userProductModel: UserProductViewModel
@@ -70,7 +73,7 @@ class ProductFragment : Fragment() {
         var adapter = ProductAdapter(listOfusers)
 
         // recycler_view.adapter = adapter
-
+        prefs = context?.getSharedPreferences(PREFS_FILENAME, 0)
 
 
         val view: View = inflater!!.inflate(R.layout.product_list, container,
@@ -102,10 +105,20 @@ class ProductFragment : Fragment() {
             adapter = ProductAdapter(listOfusers)
 
             recyclerView.adapter = adapter
+
+            /*action_button.setOnClickListener {
+                getProductPolicyDetails()
+            }*/
+
             adapter.onItemClick = { myDataset ->
 
                 // do something with your item
                 d("TAG", myDataset.product_code)
+
+                val editor = prefs!!.edit()
+                editor.putString(PRODUCT_NAME, myDataset.product_name)
+                editor.apply()
+
                 getProductPolicyDetails()
             }
         }
@@ -118,6 +131,7 @@ class ProductFragment : Fragment() {
     }
 
     private fun getUsers() {
+
         var retrofit: Retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -150,6 +164,10 @@ class ProductFragment : Fragment() {
     }
 
     private fun getProductPolicyDetails() {
+
+        val intent = Intent(context, PropertyPurchaseFormActivity::class.java)
+        // start your next activity
+        startActivity(intent)
 
     }
 }

@@ -17,8 +17,8 @@
 <resources>
 
     <!-- Resources that do not require translation -->
-    <string name="app_name" translatable="false">Sunflower</string>
-    <string name="navigation_drawer_header_title" translatable="false">Sunflower</string>
+    <string name="app_name" translatable="false">Insured</string>
+    <string name="navigation_drawer_header_title" translatable="false">Insured</string>
 
     <!-- Translatable resources -->
     <string name="menu_filter_by_grow_zone" translation_description="The label for the menu item to filter the displayed plants by grow zone.">Filter by grow zone</string>
@@ -55,4 +55,44 @@
     <string name="title_activity_main" translatable="false">Insured</string>
     <string name="hello" translatable="false">Hello</string>
     <string name="item_title" translatable="false">Palais Garnier</string>
+    <string name="property_purchase_form_property_value_hint_text" translatable="false">PROPERTY VALUE #_Please provide
+        your sum insured</string>
+    <string name="property_purchase_form_property_details_hint_text" translatable="false">PROPERTY DETAIL#_Property description,
+        address</string>
+    <string name="property_purchase_form_fire_and_buglary_basic_hint_text" translatable="false">#FIRE AND BURGLARY BASIC</string>
+    <string name="proceed_to_kyc" translatable="false">Proceed To KYC</string>
+    <string name="kyc_form_email" translatable="false">Email</string>
+    <string name="kyc_form_password" translatable="false">Password</string>
+    <string name="kyc_form_first_name" translatable="false">First Name</string>
+    <string name="kyc_form_last_name" translatable="false">Last Name</string>
+    <string name="kyc_form_telephone" translatable="false">Mobile Number</string>
+    <string name="kyc_form_date_of_birth" translatable="false">Date of Birth (DDMMYYYY)</string>
+    <string name="kyc_form_gender" translatable="false">Gender</string>
+    <string name="kyc_form_gender_female" translatable="false">Female</string>
+    <string name="kyc_form_gender_male" translatable="false">Male</string>
+    <string name="kyc_form_marital_status" translatable="false">Marital Status</string>
+    <string name="kyc_form_occupation" translatable="false">Occupation</string>
+    <string name="kyc_form_state" translatable="false">Current State</string>
+    <string name="kyc_form_picture" translatable="false">Picture</string>
+    <string name="kyc_form_signature" translatable="false">Signature</string>
+    <string name="kyc_form_address" translatable="false">Address</string>
+    <string name="kyc_form_save_and_continue_button" translatable="false">Save and Continue</string>
+    <string name="policy_option" translatable="false">Policy Option</string>
+    <string name="cover" translatable="false">Cover</string>
+    <string name="premium" translatable="false">Premium</string>
+
+    <string name="kyc_form_occupation_prompt" translatable="false">Choose your occupation</string>
+    <string name="proceed_to_payment" translatable="false">Make Payment</string>
+
+    <string-array name="kyc_form_occupation_arrays">
+        <item>Choose your occupation</item>
+        <item>Architecture</item>
+        <item>Transport</item>
+        <item>Sales</item>
+        <item>Military and Force</item>
+        <item>Management</item>
+        <item>Law and Legal</item>
+        <item>Information Technology</item>
+        <item>Hotel and Catering</item>
+    </string-array>
 </resources>

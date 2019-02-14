@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".QuotationActivity">
+
+    <!--app:pentecostBackgroundDrawable="@drawable/payment_button"-->
+    <!--app:pentecostBackgroundColor="@color/colorPrimaryDark"-->
+
+    <app.ephod.pentecost.library.paystack.PaymentView
+        android:layout_width="match_parent"
+        app:pentecostTheme="black"
+        android:id="@+id/paymentView"
+        android:layout_height="match_parent">
+    </app.ephod.pentecost.library.paystack.PaymentView>
+
+</LinearLayout>

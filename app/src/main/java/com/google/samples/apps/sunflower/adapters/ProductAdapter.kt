@@ -38,6 +38,7 @@ class ProductAdapter( private val myDataset: ArrayList<Users>) :
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.card_title.text = myDataset[position].product_name
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)
