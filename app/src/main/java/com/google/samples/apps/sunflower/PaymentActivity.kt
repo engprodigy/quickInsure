@@ -36,6 +36,8 @@ class PaymentActivity: AppCompatActivity() {
 
         setContentView(R.layout.payment_layout)
 
+      //  setContentView(R.layout.constraint_layout_test)
+
         /* this@QuotationActivity.policy_option_name.setText("Policy Option" + ": " + productName)
          this@QuotationActivity.cover_option_type.setText("Cover" + ": " + coverType)
          this@QuotationActivity.premium_amount.setText("Premium" + ": " + premiumAmount)*/

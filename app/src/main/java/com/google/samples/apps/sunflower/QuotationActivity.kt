@@ -39,7 +39,11 @@ class QuotationActivity : AppCompatActivity() {
         this@QuotationActivity.cover_option_type.setText("Cover" + ": " + coverType)
         this@QuotationActivity.premium_amount.setText("Premium" + ": " + premiumAmount)
 
-
+          val lastString = "0.01*{C1700004}"
+          val lastStringPosition: Int = lastString.indexOf("}")
+          var firstStringPosition: Int = lastString.indexOf("{")
+          firstStringPosition += 1
+          val subSequence = lastString.subSequence(firstStringPosition, lastStringPosition )
 
         proceed_to_payment_button.onClick {
 

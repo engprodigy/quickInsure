@@ -36,6 +36,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.Response
 import kotlinx.android.synthetic.main.product_list.*
 import kotlinx.android.synthetic.main.text_view.*
+import org.jetbrains.anko.support.v4.intentFor
 
 
 /*import androidx.lifecycle.Observer
@@ -119,7 +120,7 @@ class ProductFragment : Fragment() {
                 editor.putString(PRODUCT_NAME, myDataset.product_name)
                 editor.apply()
 
-                getProductPolicyDetails()
+                getProductPolicyDetails(myDataset.product_code)
             }
         }
 
@@ -138,7 +139,8 @@ class ProductFragment : Fragment() {
                 .build()
 
         var api = retrofit.create(UserProductAPI::class.java)
-        var call = api.users
+        var call = api.setProductAPI("J5bI7RkAmE7qOMAwqvFZ2.WxwaBWODgix0uy6ry2VLatls3zV.3I2")
+       // var call = api.users
         call.enqueue(object : Callback<UsersProductList> {
 
             override fun onResponse(call: Call<UsersProductList>?, response: Response<UsersProductList>?) {
@@ -163,12 +165,12 @@ class ProductFragment : Fragment() {
         })
     }
 
-    private fun getProductPolicyDetails() {
+    private fun getProductPolicyDetails(productCode:String?) {
 
-        val intent = Intent(context, PropertyPurchaseFormActivity::class.java)
+      //  val intent = Intent(context, PropertyPurchaseFormActivity::class.java)
         // start your next activity
-        startActivity(intent)
-
+       // startActivity(intent)
+        startActivity(intentFor<PropertyPurchaseFormActivity>("product_code" to productCode))
     }
 }
 
