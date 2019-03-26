@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil.setContentView
 import com.google.android.material.textfield.TextInputLayout
@@ -27,11 +26,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.adapter.rxjava2.Result.response
 import android.R.string
 import android.content.Context
+import android.graphics.Typeface
+import android.util.TypedValue
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.View
-import android.widget.LinearLayout
-import android.widget.RadioButton
-import android.widget.TextView
+import android.widget.*
+import androidx.core.view.marginTop
 import com.beust.klaxon.Klaxon
 import com.beust.klaxon.PathMatcher
 import org.jetbrains.anko.*
@@ -40,6 +41,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.util.regex.Pattern
 import org.jetbrains.anko.AnkoContext
+import org.jetbrains.anko.sdk27.coroutines.onCheckedChange
 
 
 class PropertyPurchaseFormActivity : AppCompatActivity() {
@@ -59,10 +61,24 @@ class PropertyPurchaseFormActivity : AppCompatActivity() {
 
        val productCode=intent.getStringExtra("product_code")
 
-        getProductField(productCode)
+       var productFieldId_2 : Int = 78899
+       verticalLayout {
+           id = productFieldId_2
+           tag = "verticalLayout"
+          // layoutParams = ViewGroup.LayoutParams(matchParent, matchParent)
+           padding = dip(10)
+
+
+
+
+       }
+       val buttonContainer = findViewById<LinearLayout>(productFieldId_2)
+
+        getProductField(productCode, buttonContainer)
 
         var countValue =count
         Log.d("TAG", countValue.toString())
+
 
    /*    property_purchase_form_input_text_1.textChangedListener {
             afterTextChanged {
@@ -77,25 +93,11 @@ class PropertyPurchaseFormActivity : AppCompatActivity() {
             }
 
         }
+            */
 
-        property_purchase_form_submit_button.onClick {
-
-           /* val editor = prefs!!.edit()
-            editor.putInt(PRODUCT_NAME, color)
-            editor.apply()*/
-            val editor = prefs!!.edit()
-            editor.putString(PROPERTY_DETAILS, this@PropertyPurchaseFormActivity.property_purchase_form_input_text_2.text.toString())
-            editor.putString(PROPERTY_PREMIUM_AMOUNT, this@PropertyPurchaseFormActivity.property_purchase_form_input_text_3.text.toString())
-            editor.putString(PROPERTY_COVER, this@PropertyPurchaseFormActivity.property_purchase_form_input_layout_3.hint.toString())
-            editor.apply()
-
-            val intent = Intent (this@PropertyPurchaseFormActivity, kyc_form_activity::class.java)
-            // start your next activity
-            startActivity(intent)
-        }*/
     }
 
-    private fun getProductField(productCodeFieldValue:String) {
+    private fun getProductField(productCodeFieldValue:String, buttonContainer:LinearLayout ) {
 
         var retrofit: Retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -118,23 +120,32 @@ class PropertyPurchaseFormActivity : AppCompatActivity() {
                 var jsonArrayGuarantyCodeLength = jsonObjectGuarantyCode.length()
                 var jsonArrayGuarantyCode = jsonObjectGuarantyCode.names()
 
-                var productFieldId_2 : Int = 78899
+                /*var productFieldId_2 : Int = 78899
                 verticalLayout {
                     id = productFieldId_2
                     tag = "verticalLayout"
                     layoutParams = ViewGroup.LayoutParams(matchParent, matchParent)
-                    padding = dip(90)
+                    padding = dip(10)
 
 
 
-                }
+
+                }*/
 
                 //var guarantyCalcArray = arrayOf<String>()
-                var guarantyCalcArray : MutableList<String> = mutableListOf<String>()
+                var guarantyCalcArray : MutableList<String> = mutableListOf<String>()   //array of input formula defined as guaranty_calc
                 var guarantyCodeArray : MutableList<String> = mutableListOf<String>()
                 //var guarantyCodeMap = mutableMapOf<String, String>()
                 var inputTypeMap = mutableMapOf<String, String>()
                 var guarantyCalcCounter : Int = 0
+
+                //val buttonContainer = findViewById<LinearLayout>(productFieldId_2)
+                //val paramsbuttonContainer = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+               /* val paramsbuttonContainer = buttonContainer.layoutParams as ViewGroup.MarginLayoutParams
+                paramsbuttonContainer.setMargins(paramsbuttonContainer.leftMargin, paramsbuttonContainer.topMargin,
+                        paramsbuttonContainer.rightMargin, paramsbuttonContainer.bottomMargin)*/
+
+                  buttonContainer.margin(top = 100F)
 
                 for (i in 0 until jsonArrayGuarantyCodeLength) {
 
@@ -143,8 +154,11 @@ class PropertyPurchaseFormActivity : AppCompatActivity() {
                     val j= i
 
 
+                    val textViewGuarantyName = TextView(getBaseContext())
 
-                   val buttonContainer = findViewById<LinearLayout>(productFieldId_2)
+                    val textViewGuarantyTotalValue = TextView(getBaseContext())
+
+
 
                    // val buttonContainer    = findViewWithTag<LinearLayout>("verticalLayout")
 
@@ -186,30 +200,79 @@ class PropertyPurchaseFormActivity : AppCompatActivity() {
 
                                        }
 
+                              val inflater: LayoutInflater = LayoutInflater.from(getBaseContext());
+                               val viewval = inflater.inflate(R.layout.kyc_form, null)
+                              val myButton = viewval.findViewById(R.id.text_email) as EditText
 
-                             val editText = EditText(getBaseContext())
+                             // buttonContainer.addView(myButton)
 
-                             editText.setTag(guarantyCode)
+                             val editText =   EditText(getBaseContext())
 
-                             buttonContainer.addView(editText)
+                           // textViewGuarantyName.margin(top = 50F)
+                            textViewGuarantyName.text = guarantyName
+
+                            editText.setTag(guarantyCode)
+                            buttonContainer.addView(textViewGuarantyName)
+                            buttonContainer.addView(editText)
+                            textViewGuarantyName.margin(top = 20F)
+                            editText.margin(top = 30F)
+                           //editText.margin(bottom = 50F)
+
+
+
 
                              inputTypeMap[guarantyCode] = guarantyType
+
                              }else if (guarantyType  == "MF") {
 
                             var delimiter1 = ":"
                             var delimiter2 = "|"
 
-                            //val inputsString = guarantyCalc.split(delimiter1, delimiter2)
-                            val inputsString = guarantyCalc.split(delimiter2)
+                            val inputsString = guarantyCalc.split(delimiter1, delimiter2)
+                           // val inputsString = guarantyCalc.split(delimiter2)
+                            val radioGroup = RadioGroup(getBaseContext())
+                            radioGroup.orientation = RadioGroup.VERTICAL
+
+                            textViewGuarantyName.text = guarantyName
+                            val paramsTextView = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                           // params.setMargins(0, 40, 0, 0)
+                            //textViewGuarantyName.layoutParams = paramsTextView
+
+
+
                             for (j in 0 until inputsString.size) {
 
-                                val radioButton = RadioButton(getBaseContext())
-                                radioButton.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                                radioButton.setText(inputsString[j])
-                                //radioButton1.setTag(guarantyCode)
-                                radioButton.id = j
-                                buttonContainer.addView(radioButton)
+                                if (j % 2 == 0) {
+                                    val radioButton = RadioButton(getBaseContext())
+                                    //radioButton.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+
+                                    radioButton.setText(inputsString[j])
+                                    radioButton.setTag(guarantyCode)
+                                    radioButton.id = j
+                                    //radioButton.onCheckedChange { buttonView, isChecked ->  }
+                                    radioButton.setOnClickListener(View.OnClickListener {
+                                        Log.d("TAG", radioButton.text.toString())
+                                        textViewGuarantyTotalValue.setText("         Guaranty Total" + "   " + radioButton.text)
+                                    })
+                                    radioGroup.addView(radioButton)
+                                    radioButton.margin(top = 15F)
+                                }
+
                             }
+
+                            buttonContainer.addView(textViewGuarantyName)
+
+                            buttonContainer.addView(radioGroup)
+
+                            textViewGuarantyName.margin(top = 30F)
+
+                            radioGroup.margin(top = 30F)
+                            //textViewGuarantyTotalValue.setTypeface()
+
+                            buttonContainer.addView(textViewGuarantyTotalValue)
+
+                            textViewGuarantyTotalValue.margin(top = 30F)
+
 
 
                         } else if (guarantyType  == "TL") {
@@ -218,9 +281,47 @@ class PropertyPurchaseFormActivity : AppCompatActivity() {
 
                             textView.setTag(guarantyCode)
                             textView.textSize = 20f
-                            textView.text = guarantyName + ": " + "  " + description1
+                            textView.text = description1
 
+                            textViewGuarantyName.text = guarantyName
+                            buttonContainer.addView(textViewGuarantyName)
                             buttonContainer.addView(textView)
+                            textViewGuarantyName.margin(top = 30F)
+                            textView.margin(top = 30F)
+
+
+
+                        }else if (guarantyType  == "MI") {
+
+                            var delimiter1 = ":"
+                            var delimiter2 = "|"
+
+                            val inputsString = guarantyCalc.split(delimiter1, delimiter2)
+                           // val inputsString = guarantyCalc.split(delimiter2)
+                            val radioGroup = RadioGroup(getBaseContext())
+                            val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+                            //params.setMargins(0, 100, 0, 0)
+                            //radioGroup.layoutParams = params
+
+
+                            for (j in 0 until inputsString.size) {
+
+                                if (j % 2 == 0) {
+                                    val radioButton = RadioButton(getBaseContext())
+                                    //radioButton.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+                                    radioButton.setText(inputsString[j])
+                                    radioButton.setTag(guarantyCode)
+                                    radioButton.id = j
+                                    radioGroup.addView(radioButton)
+                                    radioButton.margin(top = 30F)
+                                }
+
+                            }
+                            textViewGuarantyName.text = guarantyName
+                            buttonContainer.addView(textViewGuarantyName)
+                            buttonContainer.addView(radioGroup)
+                            radioGroup.margin(top = 30F)
+                            textViewGuarantyName.margin(top = 30F)
 
 
 
@@ -255,8 +356,11 @@ class PropertyPurchaseFormActivity : AppCompatActivity() {
                             val editText = EditText(getBaseContext())
 
                             editText.setTag(guarantyCode)
-
+                            textViewGuarantyName.text = guarantyName
+                            buttonContainer.addView(textViewGuarantyName)
                             buttonContainer.addView(editText)
+                            textViewGuarantyName.margin(top = 20F)
+                            editText.margin(top = 30F)
 
                             inputTypeMap[guarantyCode] = guarantyType
                         }else if (guarantyType  == "MF") {
@@ -264,17 +368,32 @@ class PropertyPurchaseFormActivity : AppCompatActivity() {
                             var delimiter1 = ":"
                             var delimiter2 = "|"
 
-                            //val inputsString = guarantyCalc.split(delimiter1, delimiter2)
-                            val inputsString = guarantyCalc.split(delimiter2)
+                            val inputsString = guarantyCalc.split(delimiter1, delimiter2)
+                            //val inputsString = guarantyCalc.split(delimiter2)
+                            val radioGroup = RadioGroup(getBaseContext())
+                            val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                           // params.setMargins(0, 100, 0, 0)
+                           // radioGroup.layoutParams = params
+
+
                             for (j in 0 until inputsString.size) {
 
-                                val radioButton = RadioButton(getBaseContext())
-                                radioButton.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                                radioButton.setText(inputsString[j])
-                                //radioButton1.setTag(guarantyCode)
-                                radioButton.id = j
-                                buttonContainer.addView(radioButton)
+                                if (j % 2 == 0) {
+                                    val radioButton = RadioButton(getBaseContext())
+                                    //radioButton.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+                                    radioButton.setText(inputsString[j])
+                                    radioButton.setTag(guarantyCode)
+                                    radioButton.id = j
+                                    radioGroup.addView(radioButton)
+                                    radioButton.margin(top = 15F)
+                                }
+
                             }
+                            textViewGuarantyName.text = guarantyName
+                            buttonContainer.addView(textViewGuarantyName)
+                            buttonContainer.addView(radioGroup)
+                            textViewGuarantyName.margin(top = 30F)
+                            radioGroup.margin(top = 30F)
 
 
                         }else if (guarantyType  == "TL") {
@@ -283,9 +402,46 @@ class PropertyPurchaseFormActivity : AppCompatActivity() {
 
                             textView.setTag(guarantyCode)
                             textView.textSize = 20f
-                            textView.text = guarantyName + ": " + "  " + description1
+                            textView.text = description1
 
+                            textViewGuarantyName.text = guarantyName
+                            buttonContainer.addView(textViewGuarantyName)
                             buttonContainer.addView(textView)
+                            textViewGuarantyName.margin(top = 30F)
+                            textView.margin(top = 30F)
+
+
+
+                        }else if (guarantyType  == "MI") {
+
+                            var delimiter1 = ":"
+                            var delimiter2 = "|"
+
+                            val inputsString = guarantyCalc.split(delimiter1, delimiter2)
+                            //val inputsString = guarantyCalc.split(delimiter2)
+                            val radioGroup = RadioGroup(getBaseContext())
+                            val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                            //params.setMargins(0, 100, 0, 0)
+                           // radioGroup.layoutParams = params
+
+                            for (j in 0 until inputsString.size) {
+
+                                if (j % 2 == 0) {
+                                    val radioButton = RadioButton(getBaseContext())
+                                    //radioButton.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+                                    radioButton.setText(inputsString[j])
+                                    radioButton.setTag(guarantyCode)
+                                    radioButton.id = j
+                                    radioGroup.addView(radioButton)
+                                    radioButton.margin(top = 15F)
+                                }
+
+                            }
+
+                            textViewGuarantyName.text = guarantyName
+                            buttonContainer.addView(textViewGuarantyName)
+                            buttonContainer.addView(radioGroup)
+                            radioGroup.margin(top = 30F)
 
 
 
@@ -321,7 +477,11 @@ class PropertyPurchaseFormActivity : AppCompatActivity() {
 
                             editText.setTag(guarantyCode)
 
+                            textViewGuarantyName.text = guarantyName
+                            buttonContainer.addView(textViewGuarantyName)
                             buttonContainer.addView(editText)
+                            textViewGuarantyName.margin(top = 20F)
+                            editText.margin(top = 30F)
 
                             inputTypeMap[guarantyCode] = guarantyType
 
@@ -330,18 +490,31 @@ class PropertyPurchaseFormActivity : AppCompatActivity() {
                             var delimiter1 = ":"
                             var delimiter2 = "|"
 
-                            //val inputsString = guarantyCalc.split(delimiter1, delimiter2)
-                            val inputsString = guarantyCalc.split(delimiter2)
+                            val inputsString = guarantyCalc.split(delimiter1, delimiter2)
+                           // val inputsString = guarantyCalc.split(delimiter2)
+                            val radioGroup = RadioGroup(getBaseContext())
+                            val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                            // params.setMargins(0, 100, 0, 0)
+                            //radioGroup.layoutParams = params
+
+
                             for (j in 0 until inputsString.size) {
 
-                                val radioButton = RadioButton(getBaseContext())
-                                radioButton.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                                radioButton.setText(inputsString[j])
-                                //radioButton1.setTag(guarantyCode)
-                                radioButton.id = j
-                                buttonContainer.addView(radioButton)
-                            }
+                                if (j % 2 == 0) {
+                                    val radioButton = RadioButton(getBaseContext())
+                                    //radioButton.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+                                    radioButton.setText(inputsString[j])
+                                    radioButton.setTag(guarantyCode)
+                                    radioButton.id = j
+                                    radioGroup.addView(radioButton)
+                                    radioButton.margin(top = 15F)
+                                }
 
+                            }
+                            textViewGuarantyName.text = guarantyName
+                            buttonContainer.addView(textViewGuarantyName)
+                            buttonContainer.addView(radioGroup)
+                            radioGroup.margin(top = 30F)
 
                         }else if (guarantyType  == "TL") {
 
@@ -349,9 +522,45 @@ class PropertyPurchaseFormActivity : AppCompatActivity() {
 
                             textView.setTag(guarantyCode)
                             textView.textSize = 20f
-                            textView.text = guarantyName + ": " + "  " + description1
+                            textView.text = description1
 
+                            textViewGuarantyName.text = guarantyName
+                            buttonContainer.addView(textViewGuarantyName)
                             buttonContainer.addView(textView)
+                            textViewGuarantyName.margin(top = 30F)
+                            textView.margin(top = 30F)
+
+
+
+                        }else if (guarantyType  == "MI") {
+
+                            var delimiter1 = ":"
+                            var delimiter2 = "|"
+
+                            val inputsString = guarantyCalc.split(delimiter1, delimiter2)
+                            //val inputsString = guarantyCalc.split(delimiter2)
+                            val radioGroup = RadioGroup(getBaseContext())
+                            val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                           // params.setMargins(0, 100, 0, 0)
+                           // radioGroup.layoutParams = params
+                            for (j in 0 until inputsString.size) {
+
+                                if (j % 2 == 0) {
+                                    val radioButton = RadioButton(getBaseContext())
+                                    //radioButton.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+                                    radioButton.setText(inputsString[j])
+                                    radioButton.setTag(guarantyCode)
+                                    radioButton.id = j
+                                    radioGroup.addView(radioButton)
+                                    radioButton.margin(top = 15F)
+                                }
+
+                            }
+                            textViewGuarantyName.text = guarantyName
+
+                            buttonContainer.addView(textViewGuarantyName)
+                            buttonContainer.addView(radioGroup)
+                            radioGroup.margin(top = 30F)
 
 
 
@@ -387,7 +596,11 @@ class PropertyPurchaseFormActivity : AppCompatActivity() {
 
                             editText.setTag(guarantyCode)
 
+                            textViewGuarantyName.text = guarantyName
+                            buttonContainer.addView(textViewGuarantyName)
                             buttonContainer.addView(editText)
+                            textViewGuarantyName.margin(top = 20F)
+                            editText.margin(top = 30F)
 
                             inputTypeMap[guarantyCode] = guarantyType
                         }else if (guarantyType  == "MF") {
@@ -395,18 +608,32 @@ class PropertyPurchaseFormActivity : AppCompatActivity() {
                             var delimiter1 = ":"
                             var delimiter2 = "|"
 
-                            //val inputsString = guarantyCalc.split(delimiter1, delimiter2)
-                            val inputsString = guarantyCalc.split(delimiter2)
+                            val inputsString = guarantyCalc.split(delimiter1, delimiter2)
+                            //val inputsString = guarantyCalc.split(delimiter2)
+                            val radioGroup = RadioGroup(getBaseContext())
+                            val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                            // params.setMargins(0, 100, 0, 0)
+                            //radioGroup.layoutParams = params
+                            radioGroup.margin(top = 30F)
+
                             for (j in 0 until inputsString.size) {
 
-                                val radioButton = RadioButton(getBaseContext())
-                                radioButton.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                                radioButton.setText(inputsString[j])
-                                //radioButton1.setTag(guarantyCode)
-                                radioButton.id = j
-                                buttonContainer.addView(radioButton)
-                            }
+                                if (j % 2 == 0) {
+                                    val radioButton = RadioButton(getBaseContext())
+                                    //radioButton.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+                                    radioButton.setText(inputsString[j])
+                                    radioButton.setTag(guarantyCode)
+                                    radioButton.id = j
+                                    radioGroup.addView(radioButton)
+                                    radioButton.margin(top = 15F)
+                                }
 
+                            }
+                            textViewGuarantyName.text = guarantyName
+
+                            buttonContainer.addView(textViewGuarantyName)
+                            buttonContainer.addView(radioGroup)
+                            radioGroup.margin(top = 30F)
 
                         }else if (guarantyType  == "TL") {
 
@@ -414,9 +641,48 @@ class PropertyPurchaseFormActivity : AppCompatActivity() {
 
                             textView.setTag(guarantyCode)
                             textView.textSize = 20f
-                            textView.text = guarantyName + ": " + "  " + description1
+                            textView.text = description1
+
+                            textViewGuarantyName.text = guarantyName
+                            buttonContainer.addView(textViewGuarantyName)
+
 
                             buttonContainer.addView(textView)
+                            textViewGuarantyName.margin(top = 30F)
+                            textView.margin(top = 30F)
+
+
+
+                        }else if (guarantyType  == "MI") {
+
+                            var delimiter1 = ":"
+                            var delimiter2 = "|"
+
+                            val inputsString = guarantyCalc.split(delimiter1, delimiter2)
+                           // val inputsString = guarantyCalc.split(delimiter2)
+                            val radioGroup = RadioGroup(getBaseContext())
+                           // val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                           // params.setMargins(0, 100, 0, 0)
+                           // radioGroup.layoutParams = params
+
+                            for (j in 0 until inputsString.size) {
+
+                                if (j % 2 == 0) {
+                                    val radioButton = RadioButton(getBaseContext())
+                                    //radioButton.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+                                    radioButton.setText(inputsString[j])
+                                    radioButton.setTag(guarantyCode)
+                                    radioButton.id = j
+                                    radioGroup.addView(radioButton)
+                                    radioButton.margin(top = 15F)
+                                }
+
+                            }
+                            textViewGuarantyName.text = guarantyName
+                            //textViewGuarantyName.margin(top = 30F)
+                            buttonContainer.addView(textViewGuarantyName)
+                            buttonContainer.addView(radioGroup)
+                            radioGroup.margin(top = 30F)
 
 
 
@@ -492,7 +758,7 @@ class PropertyPurchaseFormActivity : AppCompatActivity() {
                 val guarantyCalcArrayTrack = guarantyCalcArray
 
 
-                val buttonContainer = findViewById<LinearLayout>(productFieldId_2)
+               // val buttonContainer = findViewById<LinearLayout>(productFieldId_2)
 
            //     val guarantyCodeMapTracker =   guarantyCodeMap
 
@@ -585,13 +851,102 @@ class PropertyPurchaseFormActivity : AppCompatActivity() {
                                 }
 
                             }
+                            if (tracker == 3){
+                                editText2.textChangedListener {
+                                    afterTextChanged {
+                                        // Do something here...
+                                        var busy = false
+                                        Log.d("TAG", "I'm here")
+                                        var propertyValue = editText2.text.toString()
+                                        var parsedInt = propertyValue.toDouble()
+                                        parsedInt = parsedInt * textFormula[0].toString().toDouble()
+                                        val stringPropertyPremiumAmount = parsedInt.toString()
+                                        val editText3 = buttonContainer.findViewWithTag<EditText>(tagText[0])
+                                        editText3.setText("N" + stringPropertyPremiumAmount)
+
+                                        var parsedInt2 = propertyValue.toDouble()
+                                        parsedInt2 = parsedInt2 * textFormula[1].toString().toDouble()
+                                        val stringPropertyPremiumAmount2 = parsedInt2.toString()
+                                        val editText4 = buttonContainer.findViewWithTag<EditText>(tagText[1])
+                                        editText4.setText("N" + stringPropertyPremiumAmount2)
+
+                                        var parsedInt3 = propertyValue.toDouble()
+                                        parsedInt3 = parsedInt3 * textFormula[1].toString().toDouble()
+                                        val stringPropertyPremiumAmount3 = parsedInt3.toString()
+                                        val editText5 = buttonContainer.findViewWithTag<EditText>(tagText[2])
+                                        editText4.setText("N" + stringPropertyPremiumAmount3)
+                                    }
+
+                                }
+
+                            }
                         }
                     }
-                    val rlmain = LinearLayout(getBaseContext())
+                    //val rlmain = LinearLayout(getBaseContext())
 
                 }
 
+                var inputPatternMiSfSf : Boolean = false    //variable to determine state of input field pattern
 
+                for (i in 0 until jsonArrayGuarantyCodeLength) {
+
+                    var viewType = buttonContainer.getChildAt(i)
+
+                    var viewTypeTag = viewType.getTag()
+
+                    if (inputTypeMap[viewTypeTag] == "MI" && i == 0) {
+
+                        inputPatternMiSfSf = true
+
+                    }else{
+                        inputPatternMiSfSf = false
+                    }
+
+                    if (inputTypeMap[viewTypeTag] == "SF" && i == 1) {
+
+                        inputPatternMiSfSf = true
+
+                    }else{
+                        inputPatternMiSfSf = false
+                    }
+
+                    if (inputTypeMap[viewTypeTag] == "SF" && i == 2) {
+
+                        inputPatternMiSfSf = true
+
+                    }else{
+                        inputPatternMiSfSf = false
+                    }
+
+                 }
+
+                if (inputPatternMiSfSf == true){
+
+                    for (i in 0 until jsonArrayGuarantyCodeLength) {
+
+                        var viewType =  buttonContainer.getChildAt(i)
+
+                        var viewTypeTag =  viewType.getTag()
+
+                        val radioButton = buttonContainer.findViewWithTag<RadioButton>(viewTypeTag)
+
+                        var inputTypeMapTwo = mutableMapOf<String, CharSequence>()
+
+                        for (j in 0 until guarantyCalcArrayTrack.size) {
+
+                            if (guarantyCalcArrayTrack[j].contains(viewTypeTag.toString())) {
+
+                                var stringPositionTracker: Int = guarantyCalcArrayTrack[j].indexOf("*")
+
+                                val subSequence = guarantyCalcArrayTrack[j].subSequence(0, stringPositionTracker)
+
+                                Log.d("TAG", subSequence.toString())
+                                Log.d("TAG", viewTypeTag.toString())
+                            }
+                        }
+                    }
+
+                }
                 // var viewType3 =  rlmain.getChildAt(1)
 
                 //val rlmain = LinearLayout(getBaseContext())
@@ -603,6 +958,27 @@ class PropertyPurchaseFormActivity : AppCompatActivity() {
                 var guaranty_code = jsonObjectGuarantyCodeList.getString("guaranty_code")
                 var jsonArrayGuarantyCode = jsonObjectGuarantyCode.names()
                 var jsonArrayGuarantyCodeLength = jsonObjectGuarantyCode.length()*/
+                val submitButton = Button(getBaseContext())
+                submitButton.setText("Submit and Proceed to KYC");
+
+                submitButton.onClick {
+
+                    /*val editor = prefs!!.edit()
+                    editor.putInt(PRODUCT_NAME, color)
+                    editor.apply()
+                    val editor = prefs!!.edit()
+                    editor.putString(PROPERTY_DETAILS, this@PropertyPurchaseFormActivity.property_purchase_form_input_text_2.text.toString())
+                    editor.putString(PROPERTY_PREMIUM_AMOUNT, this@PropertyPurchaseFormActivity.property_purchase_form_input_text_3.text.toString())
+                    editor.putString(PROPERTY_COVER, this@PropertyPurchaseFormActivity.property_purchase_form_input_layout_3.hint.toString())
+                    editor.apply()*/
+
+                    val intent = Intent (this@PropertyPurchaseFormActivity, kyc_form_activity::class.java)
+                    // start your next activity
+                    startActivity(intent)
+                }
+                buttonContainer.addView(submitButton)
+
+                submitButton.margin(top = 40F)
 
 
             }
@@ -612,7 +988,34 @@ class PropertyPurchaseFormActivity : AppCompatActivity() {
                 Log.v("Error", t.toString())
             }
         })
+
       }
+
+
+
+
+    fun setMarginLeft(v: View, left: Int) {
+        val params = v.layoutParams as ViewGroup.MarginLayoutParams
+        params.setMargins(left, params.topMargin,
+                params.rightMargin, params.bottomMargin)
+    }
+
+    fun View.margin(left: Float? = null, top: Float? = null, right: Float? = null, bottom: Float? = null) {
+        layoutParams<ViewGroup.MarginLayoutParams> {
+            left?.run { leftMargin = dpToPx(this) }
+            top?.run { topMargin = dpToPx(this) }
+            right?.run { rightMargin = dpToPx(this) }
+            bottom?.run { bottomMargin = dpToPx(this) }
+        }
+    }
+
+    inline fun <reified T : ViewGroup.LayoutParams> View.layoutParams(block: T.() -> Unit) {
+        if (layoutParams is T) block(layoutParams as T)
+    }
+
+    fun View.dpToPx(dp: Float): Int = context.dpToPx(dp)
+    fun Context.dpToPx(dp: Float): Int = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics).toInt()
+
 
 
     }
