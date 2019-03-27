@@ -27,12 +27,12 @@ class MainActivity : AppCompatActivity() {
                 openFragment(quotesFragment)
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_notifications -> {
+            /*R.id.navigation_notifications -> {
                // message.setText(R.string.title_notifications)
                 val claimsFragment = ClaimsFragment()
                 openFragment(claimsFragment)
                 return@OnNavigationItemSelectedListener true
-            }
+            }*/
         }
         false
        /* val productFragment = ProductFragment()

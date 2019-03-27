@@ -70,7 +70,7 @@ Libraries Used
 [91]: https://kotlinlang.org/docs/reference/coroutines-overview.html
 
 
-Android Studio IDE setup
+Android Studio IDE setup instruction
 ------------------------
 For development, the latest version of Android Studio 3.3 is required. The latest version can be
 downloaded from [here](https://developer.android.com/studio/).

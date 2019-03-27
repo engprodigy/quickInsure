@@ -111,6 +111,8 @@ class ProductFragment : Fragment() {
                 getProductPolicyDetails()
             }*/
 
+//           var holder = adapter.MyViewHolder(view)
+          // holder.card_button.setOnClickListener {   getProductPolicyDetails(myDataset.product_code)}
             adapter.onItemClick = { myDataset ->
 
                 // do something with your item

@@ -3,10 +3,13 @@ package com.google.samples.apps.sunflower.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.get
+import com.google.samples.apps.sunflower.PropertyPurchaseFormActivity
 import com.google.samples.apps.sunflower.R
 import com.google.samples.apps.sunflower.Users
 
@@ -38,7 +41,7 @@ class ProductAdapter( private val myDataset: ArrayList<Users>) :
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.card_title.text = myDataset[position].product_name
-
+        //holder.card_button.setOnClickListener {  }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -47,9 +50,11 @@ class ProductAdapter( private val myDataset: ArrayList<Users>) :
    // inner class MyViewHolder(itemView: View, val itemClick: (Users) -> Unit) : RecyclerView.ViewHolder(itemView) {
    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal var card_title: TextView
+       // internal var card_button: Button
 
         init {
             card_title = itemView.findViewById<View>(R.id.card_title) as TextView
+           // card_button = itemView.findViewById<View>(R.id.action_button) as Button
             itemView.setOnClickListener {
 
                 onItemClick?.invoke(myDataset[adapterPosition])
@@ -62,4 +67,6 @@ class ProductAdapter( private val myDataset: ArrayList<Users>) :
                 }
             }*/
     }
+
+
 }

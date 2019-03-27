@@ -49,8 +49,8 @@
     <!-- Accessibility -->
     <string name="a11y_plant_item_image" translation_description="Accessibility text for each of the plant images shown in the 'My garden' and 'Plant list' screens.">Picture of plant</string>
     <string name="title_activity_bottom_navigation" translatable="false">BottomNavigationActivity</string>
-    <string name="title_home" translatable="false">My Policies</string>
-    <string name="title_dashboard" translatable="false">Quotation</string>
+    <string name="title_home" translatable="false">Policies</string>
+    <string name="title_dashboard" translatable="false">Login</string>
     <string name="title_notifications" translatable="false">Claims</string>
     <string name="title_activity_main" translatable="false">Insured</string>
     <string name="hello" translatable="false">Hello</string>
