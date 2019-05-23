@@ -10,7 +10,6 @@ I'm building this app using https://github.com/googlesamples/android-sunflower s
 
 
 
-![Insure_mobile_screenshot1](https://user-images.githubusercontent.com/1181072/58248551-4fbcaa00-7d54-11e9-97dd-382c797073a2.jpeg)
 
 
 Getting Started
@@ -94,5 +93,13 @@ from the ktlint [README](https://github.com/shyiko/ktlint/blob/master/README.md)
   `./ktlint --apply-to-idea-project --android`
 
 - Start Android Studio
+
+More Screen Shot
+------------------------
+![WhatsApp Image 2019-05-23 at 9 19 20 AM](https://user-images.githubusercontent.com/1181072/58249182-171dd000-7d56-11e9-9058-278920a3b436.jpeg)
+
+
+![WhatsApp Image 2019-05-23 at 9 16 46 AM](https://user-images.githubusercontent.com/1181072/58249072-c8703600-7d55-11e9-907d-4e6a32e03c6f.jpeg)
+
 
 
