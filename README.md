@@ -13,7 +13,7 @@ Due to the term of engagement with the client, this repo contains just part of t
 
 This are used to by the app to build it's content dynamically
 
-This JSON String List the all the Insurance Products available
+This JSON String below list the all the Insurance Products available
 ```
 {
     "status": true,
