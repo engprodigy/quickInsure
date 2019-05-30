@@ -143,7 +143,7 @@ This JSON String below list the all the Insurance Products available
 
 ```
 
-This JSON String is used to provide more details on a selected product and contains the formula used in calculating a premium to be paid based on the filled input field available for that product. This is unique for insurance product.
+This JSON String below is used to provide more details on a selected product and contains the formula used in calculating a premium to be paid based on the filled input field available for that product. This is unique for insurance product.
 
 ```
 {
