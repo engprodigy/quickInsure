@@ -14,7 +14,7 @@ Due to the term of engagement with the client, this repo contains just part of t
 This are used to by the app to build it's content dynamically
 
 This JSON String List the all the Insurance Products available
-
+```
 {
     "status": true,
     "message": 200,
@@ -139,11 +139,11 @@ This JSON String List the all the Insurance Products available
             "comm_rate": "20"
         }
     ]
-}
+}```
 
 
 This JSON String is used to provide more details on a selected product and contains the formula used in calculating a premium to be paid based on the filled input field available for that product. This is unique for insurance product.
-
+```
 {
     "status": true,
     "message": 200,
@@ -216,7 +216,7 @@ This JSON String is used to provide more details on a selected product and conta
             }
         }
     }
-}
+}```
 
 **A Screen Shot**
 
