@@ -4,7 +4,219 @@
 
 I'm building this app using https://github.com/googlesamples/android-sunflower sample project as my base source code.
 
+Due to the term of engagement with the client, this repo contains just part of the whole source code.
+
+
 **Don't ever re-invent the wheel.**
+
+**Sample API response JSON**
+
+This are used to by the app to build it's content dynamically
+
+This JSON String List the all the Insurance Products available
+
+{
+    "status": true,
+    "message": 200,
+    "data": [
+        {
+            "product_code": "P1700006",
+            "product_name": "PROPERTY PROTECT PLAN",
+            "description": "protection against fire, buglary and theft",
+            "category_code": "F",
+            "category_name": "FIRE AND BURGLARY",
+            "category_link": "GENERAL",
+            "multiple_detail": "1",
+            "renewable": "1",
+            "multiple_payment": null,
+            "product_icon": "fa-bank",
+            "policy_numbering": "HOM{y}.|000000",
+            "duration": 366,
+            "featured": "Y",
+            "status": "1",
+            "comm_rate": "0"
+        },
+        {
+            "product_code": "P1700005",
+            "product_name": "PERSONAL ACCIDENT LITE",
+            "description": "Li Europan lingues es membres del sam familie. Lor separat existentie es un myth. Por scientie, musica, sport etc, litot Europa usa li sam vocabular. Li lingues differe solmen in li grammatica, li pronunciation e li plu commun vocabules. Omnicos directe al desirabilite de un nov lingua franca: On refusa",
+            "category_code": "G",
+            "category_name": "GENERAL ACCIDENT",
+            "category_link": "GENERAL",
+            "multiple_detail": "1",
+            "renewable": "1",
+            "multiple_payment": null,
+            "product_icon": "fa-ambulance",
+            "policy_numbering": "PAC.|000000|{Y}",
+            "duration": 5479,
+            "featured": "Y",
+            "status": "1",
+            "comm_rate": "0"
+        },
+        {
+            "product_code": "P1700003",
+            "product_name": "MOTOR COMPREHENSIVE LITE",
+            "description": "The European languages are members of the same family. Their separate existence is a myth. For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one",
+            "category_code": "V",
+            "category_name": "MOTOR",
+            "category_link": "GENERAL",
+            "multiple_detail": "1",
+            "renewable": "1",
+            "multiple_payment": null,
+            "product_icon": "fa-car",
+            "policy_numbering": "MTP.{y}.|000000|.V",
+            "duration": 366,
+            "featured": "Y",
+            "status": "1",
+            "comm_rate": "6.25"
+        },
+        {
+            "product_code": "P1700004",
+            "product_name": "MOTOR THIRD PARTY",
+            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate",
+            "category_code": "V",
+            "category_name": "MOTOR",
+            "category_link": "GENERAL",
+            "multiple_detail": "1",
+            "renewable": "1",
+            "multiple_payment": null,
+            "product_icon": "fa-car",
+            "policy_numbering": "MTP.{y}.|000000|.V",
+            "duration": 366,
+            "featured": "Y",
+            "status": "1",
+            "comm_rate": "12.5"
+        },
+        {
+            "product_code": "P1700001",
+            "product_name": "TRAVELS",
+            "description": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui",
+            "category_code": "T",
+            "category_name": "TRAVELS",
+            "category_link": "GENERAL",
+            "multiple_detail": null,
+            "renewable": null,
+            "multiple_payment": null,
+            "product_icon": "fa-briefcase",
+            "policy_numbering": "TRV.{y}.|000000|.T",
+            "duration": 14,
+            "featured": "Y",
+            "status": "1",
+            "comm_rate": "10"
+        },
+        {
+            "product_code": "P1700007",
+            "product_name": "SIMPLE INVESTMENT",
+            "description": "An affordable life and investment plan with money back fuaranty",
+            "category_code": "I",
+            "category_name": "INVESTMENT PLAN",
+            "category_link": "LIFE",
+            "multiple_detail": null,
+            "renewable": null,
+            "multiple_payment": "1",
+            "product_icon": "fa-money",
+            "policy_numbering": "SIP.{y}.|000000",
+            "duration": 31,
+            "featured": "Y",
+            "status": "1",
+            "comm_rate": "0"
+        },
+        {
+            "product_code": "P1700002",
+            "product_name": "SIMPLE LIFE",
+            "description": "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects,",
+            "category_code": "L",
+            "category_name": "TERM ASSURANCE",
+            "category_link": "LIFE",
+            "multiple_detail": null,
+            "renewable": null,
+            "multiple_payment": "1",
+            "product_icon": "fa-umbrella",
+            "policy_numbering": "MLP.{y}.|000000|.L",
+            "duration": 366,
+            "featured": "Y",
+            "status": "1",
+            "comm_rate": "20"
+        }
+    ]
+}
+
+
+This JSON String is used to provide more details on a selected product and contains the formula used in calculating a premium to be paid based on the filled input field available for that product. This is unique for insurance product.
+
+{
+    "status": true,
+    "message": 200,
+    "data": {
+        "product_code": "P1700007",
+        "product_name": "SIMPLE INVESTMENT",
+        "description": "An affordable life and investment plan with money back fuaranty",
+        "category_code": "I",
+        "category_name": "INVESTMENT PLAN",
+        "category_link": "LIFE",
+        "multiple_detail": null,
+        "renewable": null,
+        "multiple_payment": "1",
+        "product_icon": "fa-money",
+        "policy_numbering": "SIP.{y}.|000000",
+        "duration": 31,
+        "comm_rate": "0",
+        "policy_detail": null,
+        "policy_code": null,
+        "client_code": null,
+        "agent_code": null,
+        "guaranty_code": {
+            "1": {
+                "auto_id": "30",
+                "guaranty_code": "C1700012",
+                "guaranty_name": "SIMPLE LIFE AMOUNT",
+                "guaranty_type": "MI",
+                "guaranty_calc": "N1,000:1000|N2,000:2000|N5,000:5000|N10,000:10000",
+                "guaranty_limit": "10000",
+                "guaranty_option": "1",
+                "description1": "Select monthly payment",
+                "description2": "",
+                "description3": "",
+                "description4": "",
+                "description5": null,
+                "submit_by": null,
+                "submit_on": null
+            },
+            "2": {
+                "auto_id": "31",
+                "guaranty_code": "C1700013",
+                "guaranty_name": "85% INVESTMENT RETURN",
+                "guaranty_type": "SF",
+                "guaranty_calc": "0.85*{C1700012}",
+                "guaranty_limit": "0",
+                "guaranty_option": "1",
+                "description1": "Investment return in monthly contribution",
+                "description2": "",
+                "description3": "",
+                "description4": "",
+                "description5": null,
+                "submit_by": null,
+                "submit_on": null
+            },
+            "3": {
+                "auto_id": "32",
+                "guaranty_code": "C1700014",
+                "guaranty_name": "15% LIFE COVER",
+                "guaranty_type": "SF",
+                "guaranty_calc": "0.15*{C1700012}",
+                "guaranty_limit": "0",
+                "guaranty_option": "1",
+                "description1": "10% of contributed value.",
+                "description2": "",
+                "description3": "",
+                "description4": "",
+                "description5": null,
+                "submit_by": null,
+                "submit_on": null
+            }
+        }
+    }
+}
 
 **A Screen Shot**
 
